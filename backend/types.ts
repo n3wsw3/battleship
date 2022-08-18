@@ -18,3 +18,5 @@ export interface Game {
   is_finished: boolean;
   turn: string;
 }
+
+export type Games = Record<string, Game>;

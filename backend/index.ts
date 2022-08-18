@@ -1,30 +1,20 @@
-import * as express from 'express';
+import express from 'express';
 import {createServer} from 'http';
 import {Server} from 'socket.io';
 import {createGame} from './src/game';
-import { Game, Player } from './types';
+import { getGameFromPlayerId, getGameIdFromPlayerId, getPlayerInGame } from './src/helper';
+import { Game, Games, Player } from './types';
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
+});
 const PORT = 3000;
 
-let games: Record<string, Game> = {};
-
-const getGameFromPlayerId = (playerId: string): Game => {
-  return games[getGameIdFromPlayerId(playerId)];
-}
-
-const getGameIdFromPlayerId = (playerId: string): string => {
-  let playerGame = Object.keys(games).find((value) =>
-    games[value].players.find((value) => value.socket_id === playerId)
-  );
-  return playerGame || "";
-};
-
-const getPlayerInGame = (game: Game, playerId: string): Player|undefined => {
-  return game.players.find(player => player.socket_id === playerId);
-}
+let games: Games = {};
 
 io.on('connection', (socket) => {
   console.log(`Player ${socket.id} connected`);
@@ -47,13 +37,17 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('shot', ({x, y}) => {
-    const game = getGameFromPlayerId(socket.id);
+    const game = getGameFromPlayerId(games, socket.id);
     if (game.turn === socket.id) {
-      
-      socket.to(getGameIdFromPlayerId(socket.id)).emit('shot', {x, y});
-      // Find the id of the next person in the person array
+      // Update the main game state
+      getPlayerInGame(game, socket.id)?.shots_fired.push({x, y});
+
+      // Find the id of the next person in the person array and set it to their turn
       let currentPlayerIndex = game.players.findIndex(player => player.socket_id === socket.id);
       game.turn = game.players[(currentPlayerIndex+1) % game.players.length].socket_id;
+      
+      // Send the updated shot to all players
+      socket.to(getGameIdFromPlayerId(games, socket.id)).emit('shot', {x, y});
     } else {
       console.warn(`Player ${socket.id} tried to shot when its not their turn`);
     }

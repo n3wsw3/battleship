@@ -15,7 +15,7 @@ export const getPlayerInGame = (game: Game, playerId: string): Player|undefined 
   return game.players.find(player => player.socket_id === playerId);
 }
 
-export const checkMove = (game: Game, coord: Coord): boolean => {
+export const checkMove = (player: Player, coord: Coord): boolean => {
   // Check move is inside board
   // Check move to be a unique location
   return false;

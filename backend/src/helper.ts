@@ -1,4 +1,4 @@
-import { Game, Games, Player } from "../types";
+import { Coord, Game, Games, Player } from "../types";
 
 export const getGameFromPlayerId = (games: Games, playerId: string): Game => {
   return games[getGameIdFromPlayerId(games, playerId)];
@@ -13,4 +13,10 @@ export const getGameIdFromPlayerId = (games: Games, playerId: string): string =>
 
 export const getPlayerInGame = (game: Game, playerId: string): Player|undefined => {
   return game.players.find(player => player.socket_id === playerId);
+}
+
+export const checkMove = (game: Game, coord: Coord): boolean => {
+  // Check move is inside board
+  // Check move to be a unique location
+  return false;
 }

@@ -1,18 +1,9 @@
-import {v4} from "uuid";
+import { Game } from "../types";
 
-// const createTile = () => {
-// 	return {};
-// }
-
-// const createBoard = (size_x: number, size_y: number) => {
-// 	return Array(size_x).map(() => Array(size_y).map(() => createTile()))
-// }
-
-export const createGame = (gameId: string, creator_id: string) => {
-
+export const createGame = (gameId: string, creator_id: string): Game => {
   return {
-    gameId,
-    players: [creator_id],
-
+    players: [{socket_id: creator_id, ship: [], shots_fired: []}],
+		is_finished: false,
+		turn: creator_id,
   }
 }

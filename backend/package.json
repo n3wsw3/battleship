@@ -8,7 +8,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  import cors from "cors";
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

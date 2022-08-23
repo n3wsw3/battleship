@@ -11,6 +11,9 @@
   <button onclick="create()">Create</button>
   <button onclick="join()">Join</button>
   <button onclick="ready()">Ready Up</button>
+  <input type="text" id="x">
+  <input type="text" id="y">
+  <button onclick="shoot()">Shoot</button>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
   <script>
     const socket = io("http://localhost:3000");
@@ -25,8 +28,15 @@
     socket.on("start_game", () => {
       console.log("start");
     })
+
+    socket.on("shoot", ({err, ...shot}) => {
+      if (err) return console.error(err);
+      console.log(shot);
+    })
     
     const input = document.querySelector("#input");
+    const x = document.querySelector("#x");
+    const y = document.querySelector("#y");
     const create = () => {
       socket.emit("create", input.value, (resp) => console.log(resp));
     }
@@ -35,6 +45,13 @@
     }
     const ready = () => {
       socket.emit("ready_up", [[{x: 1, y: 1}, {x: 2, y: 1}]], (resp) => console.log(resp));
+    }
+    const shoot = () => {
+      socket.emit("shoot", {x: x.value, y: y.value}, ({err, ...shot}) => {
+        if (err) return console.error(err);
+
+        console.log(shot);
+      })
     }
 
   </script>

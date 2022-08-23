@@ -23,6 +23,7 @@ export interface ServerEvents {
   "shoot": (shot: ResponseT<ShootType>) => void;
   "player_joined": (playerId: string) => void;
   "start_game": () => void;
+  "game_finished": () => void;
 }
 
 export interface ClientEvents {

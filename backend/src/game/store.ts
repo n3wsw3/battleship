@@ -80,7 +80,6 @@ export class Player {
 export class Game {
   readonly game_id: string;
   readonly players: Player[] = [];
-  private _is_finished: boolean = false;
   /**
    * ID of the player whose turn it is
    */
@@ -101,6 +100,13 @@ export class Game {
     return this.players.find((player) => player.socket_id === playerId);
   }
 
+  getPrevPlayer(currentPlayerId: string): Player|undefined {
+    let currentPlayerIndex = this.players.findIndex(
+      (player) => player.socket_id === currentPlayerId
+    );
+    return this.players[--currentPlayerIndex % this.players.length];
+  }
+
   /**
    * 
    * @param currentPlayerId the current player
@@ -111,10 +117,6 @@ export class Game {
       (player) => player.socket_id === currentPlayerId
     );
     return this.players[++currentPlayerIndex % this.players.length];
-  }
-
-  setIsFinished(isFinished: boolean): void {
-    this._is_finished = isFinished;
   }
 
   addPlayer(player: Player): void {
@@ -144,8 +146,14 @@ export class Game {
     return this._turn;
   }
 
-  get is_finished(): boolean {
-    return this._is_finished;
+  playerWon(): string {
+    const player = this.players.find(player => player.ships.every(ship => ship.is_dead));
+    if (!player) return "";
+
+    const prevPlayer = this.getPrevPlayer(player.socket_id);
+    if (!prevPlayer) return "";
+
+    return prevPlayer.socket_id;
   }
 }
 

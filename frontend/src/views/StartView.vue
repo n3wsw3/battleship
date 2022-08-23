@@ -6,7 +6,7 @@
     <label for="join">Join</label>
   </div>
   <label for="gameId">Game ID</label>
-  <input type="text" id="gameId" v-model="gameId">
+  <input type="text" id="gameId" v-model="gameId" @keyup.enter="joinGame">
   <button @click="joinGame">Join game</button>
 </template>
 

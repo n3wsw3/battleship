@@ -1,4 +1,9 @@
 {
   "name": "battleship",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "pnpm -r --parallel --if-present --stream dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev"
+  }
 }

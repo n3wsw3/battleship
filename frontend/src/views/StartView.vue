@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import {io} from "socket.io-client";
 import JoinBox from "../components/JoinBox.vue";
 import { Socket } from "../types";
 

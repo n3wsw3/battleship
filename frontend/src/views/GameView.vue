@@ -10,6 +10,7 @@ import GameBoard from '../components/GameBoard.vue';
 import ShipSelector from '../components/ShipSelector.vue';
 import {reactive} from "vue";
 import {io} from "socket.io-client";
+import { Socket } from '../types';
 
 interface Coordinate {
   x: number;
@@ -21,13 +22,13 @@ interface ResponseType {
   err?: string;
 }
 
-const props = defineProps<{socket: ReturnType<typeof io> }>()
+const props = defineProps<{socket: Socket }>()
 
 const ships: ship[] = reactive([])
 
 const readyUp = () => {
-  props.socket.emit('ready_up', ships, ({msg, err}: ResponseType) => {
-    console.log(msg, err)
+  props.socket.emit('ready_up', ships, ({ msg, error }) => {
+    console.log(msg, error)
   });
 }
 </script>

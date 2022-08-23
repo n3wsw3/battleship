@@ -7,9 +7,10 @@
 import GameView from './views/GameView.vue'
 import StartView from './views/StartView.vue'
 import {io} from "socket.io-client";
+import {Socket} from "./types";
 import {ref} from "vue";
 
-const socket = io("http://localhost:3000");
+const socket: Socket = io("http://localhost:3000");
 let hasJoinedGame = ref(false)
 
 socket.on("connect", () => {

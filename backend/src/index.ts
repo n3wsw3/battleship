@@ -15,8 +15,7 @@ const io = new Server<ClientEvents, ServerEvents>(server, {
 const PORT = 3000;
 
 let games = new GameStore();
-// Outgoing events: [start_game, player_joined, game_finished, shoot]
-// Incoming events: [create, join, shoot, ready_up]
+
 io.on('connection', (socket) => {
   console.log(`Player ${socket.id} connected`);
 
@@ -27,7 +26,6 @@ io.on('connection', (socket) => {
     socket.join(gameId);
 
     console.log(`Player ${socket.id} created game ${gameId}`);
-    console.log(inspect(games, false, null, true));
 
     onCallback({msg: 'Game Created Successfully'});
   });
@@ -40,7 +38,6 @@ io.on('connection', (socket) => {
       socket.to(gameId).emit('player_joined', socket.id);
 
       console.log(`Player ${socket.id} joined game ${gameId}`);
-      console.log(inspect(games, false, null, true));
       onCallback({msg: 'Game Joined Successfully'});
     } else {
       console.warn(`Player ${socket.id} tried to join invalid game ${gameId}`);
@@ -61,7 +58,6 @@ io.on('connection', (socket) => {
 
     const {is_hit, killed_ship} = game.shoot(+x, +y);
 
-    console.log(inspect(games, false, null, true));
     onCallback({x, y, is_hit, killed_ship});
     socket.to(game.game_id).emit('shoot', {x, y, is_hit, killed_ship});
 
@@ -80,7 +76,6 @@ io.on('connection', (socket) => {
     );
     player.is_ready = true;
 
-    console.log(inspect(games, false, null, true));
     onCallback({msg: 'Added Ships and Readied Up!'});
 
     // Start the game if there are more than 2 players and all of

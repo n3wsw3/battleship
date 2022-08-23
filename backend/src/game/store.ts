@@ -15,7 +15,7 @@ export class Coord {
    * @returns true if the x and y coords match
    */
   equals(other: Coord): boolean {
-    return this.x === other.x && this.y === other.y;
+    return this.x == other.x && this.y == other.y;
   }
 }
 
@@ -42,7 +42,7 @@ export class Ship {
    * @returns true if the shot will hit a ship placed by this player
    */
   isHit(shot: Coord): boolean {
-    return !!this.coords.filter((pos) => pos.equals(shot));
+    return !!this.coords.find((pos) => pos.equals(shot));
   }
 
   /**
@@ -73,7 +73,7 @@ export class Player {
    * @returns true if the shot will hit any ships belonging to this player
    */
   isHit(shot: Coord): boolean {
-    return !!this.ships.filter((boat) => boat.isHit(shot));
+    return !!this.ships.find((boat) => boat.isHit(shot));
   }
 }
 
@@ -130,7 +130,10 @@ export class Game {
     nextPlayer.shots_fired.push(coord);
 
     const is_hit = nextPlayer.isHit(coord);
-    const killed_ship = !!nextPlayer.ships.find(ship => ship.isNewlyDead(nextPlayer.shots_fired));
+    const ship_killed = nextPlayer.ships.find(ship => ship.isNewlyDead(nextPlayer.shots_fired));
+    if (ship_killed) ship_killed.is_dead = true;
+
+    const killed_ship = !!ship_killed;
 
     this._turn = nextPlayer.socket_id;
 

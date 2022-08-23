@@ -16,7 +16,7 @@ interface Coordinate {
   x: number;
   y: number;
 }
-interface ship extends Array<Coordinate>{}
+interface Ship extends Array<Coordinate>{}
 interface ResponseType {
   msg?: string;
   err?: string;
@@ -24,7 +24,7 @@ interface ResponseType {
 
 const props = defineProps<{socket: Socket }>()
 
-const ships: ship[] = reactive([])
+const ships: Ship[] = reactive([])
 
 const readyUp = () => {
   props.socket.emit('ready_up', ships, ({ msg, error }) => {

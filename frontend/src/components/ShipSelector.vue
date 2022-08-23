@@ -1,4 +1,6 @@
 <template>
+  <h3>Place ships</h3>
+
   <button @click="emit('readyUp')">Ready</button>
 </template>
 

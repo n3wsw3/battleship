@@ -1,7 +1,10 @@
 <template>
-  <button @click="$emit('startGame')">Start Game</button>
+  <button @click="emit('readyUp')">Ready</button>
 </template>
 
 <script setup lang="ts">
-defineEmits(["startGame"])
+const emit = defineEmits<{
+  (e: "readyUp"): void,
+  (e: "updateShips", newValue: string): void,
+}>()
 </script>

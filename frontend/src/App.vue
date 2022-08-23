@@ -1,5 +1,5 @@
 <template>
-  <StartView v-if="!hasJoinedGame" :socket="socket" @startGame="hasJoinedGame=true" />
+  <StartView v-if="!hasJoinedGame" :socket="socket" @joinGame="hasJoinedGame=true" />
   <GameView v-if="hasJoinedGame" :socket="socket" />
 </template>
 
@@ -11,4 +11,20 @@ import {ref} from "vue";
 
 const socket = io("http://localhost:3000");
 let hasJoinedGame = ref(false)
+
+socket.on("connect", () => {
+  console.log("Connected to websocket!")
+})
+
+socket.on("player_joined", () => {
+  console.log("Another player joined")
+})
+
+socket.on("shoot", () => {
+  console.log("Another player shot")
+})
+
+socket.on("game_finished", () => {
+  console.log("Game finished")
+})
 </script>

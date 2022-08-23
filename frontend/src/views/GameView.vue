@@ -1,30 +1,33 @@
 <template>
 <div>
-  <h1>Game view</h1>
   <GameBoard />
+  <ShipSelector @readyUp="readyUp" @updateShips="(newValue) => {this.ships = newValue}" />
 </div>
 </template>
 
 <script setup lang="ts">
 import GameBoard from '../components/GameBoard.vue';
-import {defineProps} from "vue";
+import ShipSelector from '../components/ShipSelector.vue';
+import {reactive} from "vue";
 import {io} from "socket.io-client";
+
+interface Coordinate {
+  x: number;
+  y: number;
+}
+interface ship extends Array<Coordinate>{}
+interface ResponseType {
+  msg?: string;
+  err?: string;
+}
 
 const props = defineProps<{socket: ReturnType<typeof io> }>()
 
-props.socket.on("connect", () => {
-  console.log("Connected to websocket!")
-})
+const ships: ship[] = reactive([])
 
-props.socket.on("player_joined", () => {
-  console.log("Another player joined")
-})
-
-props.socket.on("shoot", () => {
-  console.log("Another player shot")
-})
-
-props.socket.on("game_finished", () => {
-  console.log("Game finished")
-})
+const readyUp = () => {
+  props.socket.emit('ready_up', ships, ({msg, err}: ResponseType) => {
+    console.log(msg, err)
+  });
+}
 </script>

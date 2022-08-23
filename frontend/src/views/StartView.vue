@@ -1,12 +1,11 @@
 <template>
-  <ShipSelector @startGame="$emit('startGame')" />
+  <JoinBox :socket="props.socket" @joinGame="$emit('joinGame')" />
 </template>
 
 <script setup lang="ts">
-import ShipSelector from '../components/ShipSelector.vue';
-import {defineProps} from "vue";
 import {io} from "socket.io-client";
+import JoinBox from "../components/JoinBox.vue";
 
 const props = defineProps<{socket: ReturnType<typeof io> }>()
-defineEmits(["startGame"])
+defineEmits(["joinGame"])
 </script>

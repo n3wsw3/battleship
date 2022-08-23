@@ -8,19 +8,17 @@ interface ShootType {
 }
 
 interface Error<T = ErrorsStrings> {
-  error: T;
+  error?: T;
 }
 
 type Success<T> = {
-  [K in keyof T]: T[K];
+  [K in keyof T]?: T[K];
 }
 
-export type ResponseT<T> = Error | Success<T>
-
-export type Response<T = {msg: SuccessStrings}> = (value: ResponseT<T>) => void;
+export type Response<T = {msg: SuccessStrings}> = (value:  Error & Success<T>) => void;
 
 export interface ServerEvents {
-  "shoot": (shot: ResponseT<ShootType>) => void;
+  "shoot": (shot: Parameters<Response<ShootType>>[0]) => void;
   "player_joined": (playerId: string) => void;
   "start_game": () => void;
   "game_finished": () => void;

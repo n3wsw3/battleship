@@ -1,7 +1,6 @@
 import express from 'express';
 import {createServer} from 'http';
 import {Server} from 'socket.io';
-import {inspect} from 'util';
 import {ClientEvents, ServerEvents} from './events';
 import {Coord, GameStore, Player, Ship} from './game/store';
 
@@ -58,9 +57,14 @@ io.on('connection', (socket) => {
 
     const {is_hit, killed_ship} = game.shoot(+x, +y);
 
+    console.log("playerWon ", game.playerWon());
+    if (game.playerWon()) io.to(game.game_id).emit("game_finished", game.playerWon());
+
     onCallback({x, y, is_hit, killed_ship});
     socket.to(game.game_id).emit('shoot', {x, y, is_hit, killed_ship});
 
+
+    
     // io.to(game.game_id).emit("game_finished")
   });
 

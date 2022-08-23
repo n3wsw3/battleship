@@ -33,6 +33,10 @@
       if (err) return console.error(err);
       console.log(shot);
     })
+
+    socket.on("game_finished", (id) => {
+      console.log(id === socket.id ? "I WON" : "FUCKK!!!");
+    })
     
     const input = document.querySelector("#input");
     const x = document.querySelector("#x");

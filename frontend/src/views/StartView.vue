@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <input id="create" type="radio" value="create" v-model="method">
-    <label for="create">Create</label>
-    <input id="join" type="radio" value="join" v-model="method">
-    <label for="join">Join</label>
+  <div class="bg-gray-50">
+    <div>
+      <input id="create" type="radio" value="create" v-model="method">
+      <label for="create">Create</label>
+      <input id="join" type="radio" value="join" v-model="method">
+      <label for="join">Join</label>
+    </div>
+    <label for="gameId">Game ID</label>
+    <input type="text" id="gameId" v-model="gameId" @keyup.enter="joinGame">
+    <button @click="joinGame">Join game</button>
   </div>
-  <label for="gameId">Game ID</label>
-  <input type="text" id="gameId" v-model="gameId" @keyup.enter="joinGame">
-  <button @click="joinGame">Join game</button>
 </template>
 
 <script setup lang="ts">

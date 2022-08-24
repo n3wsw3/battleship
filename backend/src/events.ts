@@ -1,3 +1,4 @@
+import { ICoord } from './game/store';
 import { ErrorsStrings, SuccessStrings } from './types';
 
 interface ShootType {
@@ -27,6 +28,6 @@ export interface ServerEvents {
 export interface ClientEvents {
   "create": (game_id: string, onCallback: Response) => void;
   "join": (game_id: string, onCallback: Response) => void;
-  "ready_up": (ships: Array<Array<{x: number, y: number}>>, onCallback: Response) => void;
+  "ready_up": (ships: Array<Array<ICoord>>, onCallback: Response) => void;
   "shoot": (shot: {x: number, y: number}, onCallback: Response<ShootType>) => void;
 }

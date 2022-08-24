@@ -4,7 +4,8 @@ type E = [
   "Game Already Exists",
   "Not Your Turn",
   "Cannot Get Next Player",
-  "All Players Are Not Ready"
+  "All Players Are Not Ready",
+  "Game ID is Required"
 ]
 
 type S = [

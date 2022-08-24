@@ -19,6 +19,7 @@ io.on('connection', (socket) => {
   console.log(`Player ${socket.id} connected`);
 
   socket.on('create', (gameId, onCallback) => {
+    if (!gameId) return onCallback({error: "Game ID is Required"});
     const game = games.findById(gameId);
     if (game) return onCallback({error: 'Game Already Exists'});
     games.create(gameId, socket.id);
@@ -57,15 +58,14 @@ io.on('connection', (socket) => {
 
     const {is_hit, killed_ship} = game.shoot(+x, +y);
 
-    console.log("playerWon ", game.playerWon());
-    if (game.playerWon()) io.to(game.game_id).emit("game_finished", game.playerWon());
+    const playerWon = game.playerWon();
+    if (playerWon) {
+      console.log('playerWon ', playerWon);
+      io.to(game.game_id).emit('game_finished', playerWon);
+    }
 
     onCallback({x, y, is_hit, killed_ship});
     socket.to(game.game_id).emit('shoot', {x, y, is_hit, killed_ship});
-
-
-    
-    // io.to(game.game_id).emit("game_finished")
   });
 
   socket.on('ready_up', (ships, onCallback) => {
@@ -97,4 +97,4 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-export * from "./events";
+export * from './events';

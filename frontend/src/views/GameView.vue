@@ -6,26 +6,17 @@
 </template>
 
 <script setup lang="ts">
+import { IShip } from 'backend';
 import GameBoard from '../components/GameBoard.vue';
 import ShipSelector from '../components/ShipSelector.vue';
 import { Socket } from '../types';
 
-interface Coordinate {
-  x: number;
-  y: number;
-}
-interface Ship extends Array<Coordinate>{}
-interface ResponseType {
-  msg?: string;
-  err?: string;
-}
-
 const props = defineProps<{socket: Socket }>()
 
-const ships = reactive<Ship[]>([])
+const ships = reactive<IShip[]>([])
 
 const readyUp = () => {
-  props.socket.emit('ready_up', ships, ({ msg, error }) => {
+  props.socket.emit('ready_up', ships.map(ship => ship.coords), ({ msg, error }) => {
     console.log(msg, error)
   });
 }

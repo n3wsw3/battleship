@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { Socket } from "../types";
-import {Ref, ref} from "vue";
 
 const props = defineProps<{socket: Socket}>()
 const emit = defineEmits<{
@@ -22,7 +21,7 @@ const emit = defineEmits<{
 }>()
 
 const gameId = ref("")
-const method: Ref<"create"|"join"> = ref("create")
+const method = ref<"create"|"join">("create")
 
 const joinGame = () => {
   props.socket.emit(method.value, gameId.value, ({ msg, error }) => {

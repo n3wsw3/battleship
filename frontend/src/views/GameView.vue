@@ -8,8 +8,6 @@
 <script setup lang="ts">
 import GameBoard from '../components/GameBoard.vue';
 import ShipSelector from '../components/ShipSelector.vue';
-import {reactive} from "vue";
-import {io} from "socket.io-client";
 import { Socket } from '../types';
 
 interface Coordinate {
@@ -24,7 +22,7 @@ interface ResponseType {
 
 const props = defineProps<{socket: Socket }>()
 
-const ships: Ship[] = reactive([])
+const ships = reactive<Ship[]>([])
 
 const readyUp = () => {
   props.socket.emit('ready_up', ships, ({ msg, error }) => {

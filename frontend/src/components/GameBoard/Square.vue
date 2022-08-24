@@ -26,11 +26,8 @@ const shoot = () => {
 
 <style>
 .square {
-  /* --size: 10%; */
   display: inline-block;
   width: var(--size);
-  /* height: var(--size); */
-  /* line-height: var(--size); */
   text-align: center;
   user-select: none;
   border: 1px solid black;

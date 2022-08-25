@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h3>Place ships</h3>
+  <div class="px-2 border-l-2 border-gray-100 h-full">
+    <h3 class="font-bold text-xl text-center my-4">Place ships</h3>
     <ul>
       <ShipSelectorShip
         v-for="(ship, index) in props.ships"
@@ -8,7 +8,12 @@
         @click="emit('updateShips', index)"
       ></ShipSelectorShip>
     </ul>
-    <button @click="readyUp">Ready</button>
+    <button
+      @click="readyUp"
+      class="bg-red-600 rounded-md text-white py-2 w-full mt-2"
+    >
+      Ready
+    </button>
   </div>
 </template>
 

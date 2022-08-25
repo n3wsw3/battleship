@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <button @click="readyUp">Ready Up</button>
-    <div class="grid grid-cols-3 md:grid-cols-4">
+  <div class="h-full">
+    <div class="grid grid-cols-3 md:grid-cols-4 h-full">
       <div class="col-span-2 md:col-span-3 flex">
         <GameBoard
           :ships="ships"
@@ -15,6 +14,7 @@
           :shots="otherShots"
           :user_id="props.other_player"
         />
+        <button @click="readyUp">Ready Up</button>
       </div>
       <ShipSelector
         v-if="!elstrellaSelected"

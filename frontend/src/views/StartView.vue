@@ -1,6 +1,8 @@
 <template>
   <div class="h-full flex items-center justify-center">
-    <div class="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
+    <div
+      class="bg-gray-50 dark:bg-slate-800 rounded-lg p-6 border border-gray-100"
+    >
       <h1 class="text-2xl font-extrabold text-center mb-4">BATTLESHIP</h1>
       <div class="mb-2">
         <input id="create" type="radio" value="create" v-model="method" />

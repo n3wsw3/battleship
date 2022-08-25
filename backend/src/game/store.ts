@@ -145,6 +145,12 @@ export class Game implements IGame {
     this.players.push(player);
   }
 
+   /**
+    * Shoot at the coordinates x and y and receive back if the shot hit and/or killed a ship
+    * @param x 
+    * @param y 
+    * @returns 
+    */
   shoot(x: number, y: number): { is_hit: boolean; killed_ship: boolean } {
     const nextPlayer = this.getNextPlayer(this.turn);
     if (!nextPlayer) return { is_hit: false, killed_ship: false };

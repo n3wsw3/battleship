@@ -141,6 +141,10 @@ export class Game implements IGame {
     return this.players[++currentPlayerIndex % this.players.length];
   }
 
+  /**
+   * Add player to game
+   * @param player 
+   */
   addPlayer(player: Player): void {
     this.players.push(player);
   }

@@ -98,3 +98,4 @@ server.listen(PORT, () => {
 });
 
 export * from './events';
+export * from './game/store';

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="input" />
+    <button onclick="create()">Create</button>
+    <button onclick="join()">Join</button>
+    <button onclick="ready()">Ready Up</button>
+    <input type="text" id="x" />
+    <input type="text" id="y" />
+    <button onclick="shoot()">Shoot</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
+    <script>
+      const socket = io("http://localhost:3000");
+      socket.on("connect", () => {
+        console.log("connected");
+      });
+
+      socket.on("player_joined", id => {
+        console.log(`Player has joined`);
+      });
+
+      socket.on("start_game", () => {
+        console.log("start");
+      });
+
+      socket.on("shoot", ({ err, ...shot }) => {
+        if (err) return console.error(err);
+        console.log(shot);
+      });
+
+      socket.on("game_finished", id => {
+        console.log(id === socket.id ? "I WON" : "FUCKK!!!");
+      });
+
+      const input = document.querySelector("#input");
+      const x = document.querySelector("#x");
+      const y = document.querySelector("#y");
+      const create = () => {
+        socket.emit("create", input.value, resp => console.log(resp));
+      };
+      const join = () => {
+        socket.emit("join", input.value, resp => console.log(resp));
+      };
+      const ready = () => {
+        socket.emit(
+          "ready_up",
+          [
+            [
+              { x: 1, y: 1 },
+              { x: 2, y: 1 },
+            ],
+          ],
+          resp => console.log(resp)
+        );
+      };
+      const shoot = () => {
+        socket.emit("shoot", { x: x.value, y: y.value }, ({ err, ...shot }) => {
+          if (err) return console.error(err);
+
+          console.log(shot);
+        });
+      };
+    </script>
+  </body>
+</html>

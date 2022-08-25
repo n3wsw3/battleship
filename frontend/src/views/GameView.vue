@@ -3,7 +3,12 @@
     <button @click="readyUp">Ready Up</button>
     <div class="grid grid-cols-3 md:grid-cols-4">
       <div class="col-span-2 md:col-span-3 flex">
-        <GameBoard :ships="ships" :shots="shots" user_id="You" />
+        <GameBoard
+          :ships="ships"
+          :shots="shots"
+          user_id="You"
+          @shoot="placeShip"
+        />
         <GameBoard
           @shoot="shoot"
           :ships="otherShips"
@@ -12,13 +17,10 @@
         />
       </div>
       <ShipSelector
-        v-if="!shipsSelected"
+        v-if="!elstrellaSelected"
+        :ships="shipsAvailable"
         @readyUp="readyUp"
-        @updateShips="
-          newValue => {
-            this.ships = newValue;
-          }
-        "
+        @updateShips="setShipIndex"
       />
     </div>
   </div>
@@ -28,9 +30,22 @@
 import { ICoord } from "backend";
 import GameBoard from "../components/GameBoard.vue";
 import ShipSelector from "../components/ShipSelector.vue";
-import { Socket } from "../types";
+import { AvailableShip, Socket } from "../types";
 
 const props = defineProps<{ socket: Socket; other_player: string }>();
+
+const shipsAvailable = reactive<AvailableShip[]>([
+  { name: "patrol boat", length: 2, placed: false, orientation: "horizontal" },
+  { name: "submarine", length: 3, placed: false, orientation: "horizontal" },
+  { name: "destroyer", length: 3, placed: false, orientation: "horizontal" },
+  { name: "battleship", length: 4, placed: false, orientation: "horizontal" },
+  { name: "carrier", length: 5, placed: false, orientation: "horizontal" },
+]);
+const selectedShipIndex = ref<number>(-1);
+const selectedShip = computed(() => {
+  if (selectedShipIndex.value < 0) return;
+  return shipsAvailable[selectedShipIndex.value];
+});
 
 const ships = reactive<Array<Array<ICoord>>>([
   [
@@ -41,13 +56,17 @@ const ships = reactive<Array<Array<ICoord>>>([
 const shots = reactive<Array<ICoord>>([]);
 const otherShips = reactive<Array<Array<ICoord>>>([]);
 const otherShots = reactive<Array<ICoord>>([]);
-const shipsSelected = ref(false);
+const elstrellaSelected = ref(false);
+const isReady = ref(false);
 
 const readyUp = () => {
   props.socket.emit("ready_up", ships, ({ msg, error }) => {
-    console.log(msg, error);
+    if (error) return console.log(error);
+
+    isReady.value = true;
+    console.log(msg);
   });
-  shipsSelected.value = true;
+  elstrellaSelected.value = true;
 };
 
 // Other person is shooting on your ships
@@ -58,6 +77,8 @@ props.socket.on("shoot", ({ error, ...hit }) => {
 
 // You are shooting on the other person's ships
 const shoot = (coord: ICoord) => {
+  if (!isReady.value) return console.log("Not ready yet");
+
   console.log(coord);
   props.socket.emit("shoot", coord, ({ error, ...hit }) => {
     if (error) return console.log(error);
@@ -67,5 +88,19 @@ const shoot = (coord: ICoord) => {
     if (hit.is_hit) otherShips.push([pos]);
     if (hit.killed_ship) console.log("KILLED SHIP!");
   });
+};
+
+const placeShip = (coord: ICoord) => {
+  if (isReady.value) return console.log("Cannot Place Ship When Ready");
+  if (!selectedShip.value) return console.log("No ship selected");
+
+  console.log(
+    `place ship ${selectedShip.value.name} at ${coord.x}, ${coord.y}`
+  );
+};
+
+const setShipIndex = (index: number) => {
+  selectedShipIndex.value = index;
+  console.log(index);
 };
 </script>

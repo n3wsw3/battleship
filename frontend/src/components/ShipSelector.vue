@@ -2,32 +2,29 @@
   <div>
     <h3>Place ships</h3>
     <ul>
-      <ShipSelectorShip v-for="ship in ships" :ship="ship"></ShipSelectorShip>
+      <ShipSelectorShip
+        v-for="(ship, index) in props.ships"
+        :ship="ship"
+        @click="emit('updateShips', index)"
+      ></ShipSelectorShip>
     </ul>
     <button @click="readyUp">Ready</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import ShipSelectorShip from "./ShipSelectorShip.vue";
-import { reactive } from "vue";
 import { AvailableShip } from "../types";
+import ShipSelectorShip from "./ShipSelectorShip.vue";
 
-const ships: AvailableShip[] = reactive([
-  { name: "patrol boat", length: 2, placed: false, orientation: "horizontal" },
-  { name: "submarine", length: 3, placed: false, orientation: "horizontal" },
-  { name: "destroyer", length: 3, placed: false, orientation: "horizontal" },
-  { name: "battleship", length: 4, placed: false, orientation: "horizontal" },
-  { name: "carrier", length: 5, placed: false, orientation: "horizontal" },
-]);
+const props = defineProps<{ ships: AvailableShip[] }>();
 
 const emit = defineEmits<{
   (e: "readyUp"): void;
-  (e: "updateShips", newValue: string): void;
+  (e: "updateShips", index: number): void;
 }>();
 
 const readyUp = () => {
-  if (ships.every(ship => ship.placed)) {
+  if (props.ships.every(ship => ship.placed)) {
     emit("readyUp");
   } else {
     console.log("Tried readying up without all ships placed");

@@ -1,6 +1,8 @@
 <template>
-  <GameBoardBoard :user_id="props.user_id" :ships="props.ships" :shots="props.shots" @shoot="(coord) => emit('shoot', coord)"
-    class="board" />
+  <div class="m-3">
+    <GameBoardBoard :user_id="props.user_id" :ships="props.ships" :shots="props.shots" @shoot="(coord) => emit('shoot', coord)"
+      class="board" />
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,9 +1,13 @@
 <template>
   <div>
     <button @click="readyUp">Ready Up</button>
-    <GameBoard :ships="ships" :shots="shots" user_id="You"/>
-    <GameBoard @shoot="shoot" :ships="otherShips" :shots="otherShots" :user_id="props.other_player"/>
-    <ShipSelector v-if="!shipsSelected" @readyUp="readyUp" @updateShips="(newValue) => { this.ships = newValue }" />
+    <div class="grid grid-cols-3 md:grid-cols-4">
+      <div class="col-span-2 md:col-span-3 flex">
+        <GameBoard :ships="ships" :shots="shots" user_id="You"/>
+        <GameBoard @shoot="shoot" :ships="otherShips" :shots="otherShots" :user_id="props.other_player"/>
+      </div>
+      <ShipSelector v-if="!shipsSelected" @readyUp="readyUp" @updateShips="(newValue) => { this.ships = newValue }" />
+    </div>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
-  <h3>Place ships</h3>
-
-  <ul>
-    <ShipSelectorShip v-for="ship in ships" :ship="ship"></ShipSelectorShip>
-  </ul>
-
-  <button @click="readyUp">Ready</button>
+  <div>
+    <h3>Place ships</h3>
+    <ul>
+      <ShipSelectorShip v-for="ship in ships" :ship="ship"></ShipSelectorShip>
+    </ul>
+    <button @click="readyUp">Ready</button>
+  </div>
 </template>
 
 <script setup lang="ts">

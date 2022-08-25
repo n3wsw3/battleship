@@ -1,6 +1,6 @@
 <template>
   <li
-    class="w-full flex flex-col content-between p-3 rounded-lg mb-2 bg-gray-50 items-center"
+    class="w-full flex flex-col content-between p-3 rounded-lg mb-2 bg-gray-50 items-center border border-gray-100"
   >
     <div class="h-full">
       <img

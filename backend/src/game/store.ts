@@ -1,4 +1,4 @@
-import {createGameId} from '../helper';
+import { createGameId } from "../helper";
 
 export interface ICoord {
   x: number;
@@ -9,7 +9,7 @@ export class Coord implements ICoord {
   x: number;
   y: number;
 
-  constructor({x, y}: {x: number; y: number}) {
+  constructor({ x, y }: { x: number; y: number }) {
     this.x = x;
     this.y = y;
   }
@@ -51,7 +51,7 @@ export class Ship implements IShip {
    * @returns true if the shot will hit a ship placed by this player
    */
   isHit(shot: Coord): boolean {
-    return !!this.coords.find((pos) => pos.equals(shot));
+    return !!this.coords.find(pos => pos.equals(shot));
   }
 
   /**
@@ -61,7 +61,7 @@ export class Ship implements IShip {
    */
   isNewlyDead(totalShots: Coord[]): boolean {
     return this.coords.every(
-      (coord) => !!totalShots.find((shot) => shot.equals(coord))
+      coord => !!totalShots.find(shot => shot.equals(coord))
     );
   }
 }
@@ -89,7 +89,7 @@ export class Player implements IPlayer {
    * @returns true if the shot will hit any ships belonging to this player
    */
   isHit(shot: Coord): boolean {
-    return !!this.ships.find((boat) => boat.isHit(shot));
+    return !!this.ships.find(boat => boat.isHit(shot));
   }
 }
 
@@ -119,12 +119,12 @@ export class Game implements IGame {
    * @returns the player with playerId
    */
   getPlayerFromId(playerId: string): Player | undefined {
-    return this.players.find((player) => player.socket_id === playerId);
+    return this.players.find(player => player.socket_id === playerId);
   }
 
   getPrevPlayer(currentPlayerId: string): Player | undefined {
     let currentPlayerIndex = this.players.findIndex(
-      (player) => player.socket_id === currentPlayerId
+      player => player.socket_id === currentPlayerId
     );
     return this.players[--currentPlayerIndex % this.players.length];
   }
@@ -136,7 +136,7 @@ export class Game implements IGame {
    */
   getNextPlayer(currentPlayerId: string): Player | undefined {
     let currentPlayerIndex = this.players.findIndex(
-      (player) => player.socket_id === currentPlayerId
+      player => player.socket_id === currentPlayerId
     );
     return this.players[++currentPlayerIndex % this.players.length];
   }
@@ -145,16 +145,16 @@ export class Game implements IGame {
     this.players.push(player);
   }
 
-  shoot(x: number, y: number): {is_hit: boolean; killed_ship: boolean} {
+  shoot(x: number, y: number): { is_hit: boolean; killed_ship: boolean } {
     const nextPlayer = this.getNextPlayer(this.turn);
-    if (!nextPlayer) return {is_hit: false, killed_ship: false};
+    if (!nextPlayer) return { is_hit: false, killed_ship: false };
 
-    const coord = new Coord({x, y});
+    const coord = new Coord({ x, y });
 
     nextPlayer.shots_fired.push(coord);
 
     const is_hit = nextPlayer.isHit(coord);
-    const ship_killed = nextPlayer.ships.find((ship) =>
+    const ship_killed = nextPlayer.ships.find(ship =>
       ship.isNewlyDead(nextPlayer.shots_fired)
     );
     if (ship_killed) ship_killed.is_dead = true;
@@ -163,7 +163,7 @@ export class Game implements IGame {
 
     this._turn = nextPlayer.socket_id;
 
-    return {is_hit, killed_ship};
+    return { is_hit, killed_ship };
   }
 
   get turn(): string {
@@ -171,13 +171,13 @@ export class Game implements IGame {
   }
 
   playerWon(): string {
-    const player = this.players.find((player) =>
-      player.ships.every((ship) => ship.is_dead)
+    const player = this.players.find(player =>
+      player.ships.every(ship => ship.is_dead)
     );
-    if (!player) return '';
+    if (!player) return "";
 
     const prevPlayer = this.getPrevPlayer(player.socket_id);
-    if (!prevPlayer) return '';
+    if (!prevPlayer) return "";
 
     return prevPlayer.socket_id;
   }
@@ -205,8 +205,8 @@ export class GameStore {
    * If the player belongs to no games, then undefined will be returned.
    */
   getGameIdFromPlayerId(playerId: string): string | undefined {
-    let playerGame = Object.keys(this.games).find((value) =>
-      this.games[value].players.find((value) => value.socket_id === playerId)
+    let playerGame = Object.keys(this.games).find(value =>
+      this.games[value].players.find(value => value.socket_id === playerId)
     );
     if (!playerGame) return undefined;
     return playerGame;

@@ -1,5 +1,9 @@
 <template>
-  <div class="square" :class="{ is_ship: props.has_ship, is_shot: props.is_shot }" @click="shoot">
+  <div
+    class="square"
+    :class="{ is_ship: props.has_ship, is_shot: props.is_shot }"
+    @click="shoot"
+  >
     {{ props.has_ship ? 1 : 0 }}|{{ props.is_shot ? 1 : 0 }}
   </div>
 </template>
@@ -20,8 +24,7 @@ const emit = defineEmits<{
 const shoot = () => {
   if (props.is_shot) return;
   emit("shoot");
-}
-
+};
 </script>
 
 <style>

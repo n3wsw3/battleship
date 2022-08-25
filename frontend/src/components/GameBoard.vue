@@ -1,7 +1,12 @@
 <template>
   <div class="m-3">
-    <GameBoardBoard :user_id="props.user_id" :ships="props.ships" :shots="props.shots" @shoot="(coord) => emit('shoot', coord)"
-      class="board" />
+    <GameBoardBoard
+      :user_id="props.user_id"
+      :ships="props.ships"
+      :shots="props.shots"
+      @shoot="coord => emit('shoot', coord)"
+      class="board"
+    />
   </div>
 </template>
 
@@ -10,7 +15,7 @@ import { ICoord } from "backend";
 import GameBoardBoard from "./GameBoard/Board.vue";
 
 const emit = defineEmits<{
-  (e: 'shoot', coord: ICoord): void;
+  (e: "shoot", coord: ICoord): void;
 }>();
 
 const props = defineProps<{
@@ -18,7 +23,6 @@ const props = defineProps<{
   shots: Array<ICoord>;
   user_id: string;
 }>();
-
 </script>
 
 <style>

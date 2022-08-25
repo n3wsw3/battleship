@@ -3,7 +3,7 @@
     <button @click="readyUp">Ready Up</button>
     <GameBoard :ships="ships" :shots="shots" user_id="You"/>
     <GameBoard @shoot="shoot" :ships="otherShips" :shots="otherShots" :user_id="props.other_player"/>
-    <ShipSelector @readyUp="readyUp" @updateShips="(newValue) => { this.ships = newValue }" />
+    <ShipSelector v-if="!shipsSelected" @readyUp="readyUp" @updateShips="(newValue) => { this.ships = newValue }" />
   </div>
 </template>
 
@@ -17,14 +17,15 @@ const props = defineProps<{ socket: Socket, other_player: string }>()
 
 const ships = reactive<Array<Array<ICoord>>>([[{ x: 1, y: 1 }, { x: 1, y: 2 }]]);
 const shots = reactive<Array<ICoord>>([]);
-
 const otherShips = reactive<Array<Array<ICoord>>>([]);
 const otherShots = reactive<Array<ICoord>>([]);
+const shipsSelected = ref(false);
 
 const readyUp = () => {
   props.socket.emit('ready_up', ships, ({ msg, error }) => {
     console.log(msg, error)
   });
+  shipsSelected.value = true;
 }
 
 // Other person is shooting on your ships

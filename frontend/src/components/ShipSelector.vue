@@ -30,6 +30,8 @@ const emit = defineEmits<{
 const readyUp = () => {
   if (ships.every(ship => ship.placed)) {
     emit("readyUp")
+  } else {
+    console.log("Tried readying up without all ships placed")
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <li
     class="w-full flex flex-col content-between p-3 rounded-lg mb-2 items-center hover:cursor-pointer"
     :class="{
-      'bg-gray-100 outline outline-gray-200 hover:cursor-default': isSelected,
+      'bg-gray-50 outline outline-gray-200 hover:cursor-default': isSelected,
     }"
     v-if="!ship.placed"
   >

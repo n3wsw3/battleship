@@ -16,7 +16,6 @@
           :user_id="props.other_player"
           :size="gameSize"
         />
-        <button @click="readyUp">Ready Up</button>
       </div>
       <ShipSelector
         v-if="!elstrellaSelected"

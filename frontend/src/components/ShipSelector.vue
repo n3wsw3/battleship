@@ -9,12 +9,12 @@
         @click="emit('updateShips', index)"
       ></ShipSelectorShip>
     </ul>
-    <button
+    <!-- <button
       @click="readyUp"
       class="bg-red-600 rounded-md text-white py-2 w-full mt-2"
     >
       Ready
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -39,4 +39,10 @@ const readyUp = () => {
     console.log("Tried readying up without all ships placed");
   }
 };
+
+watch(props.ships, () => {
+  if (props.ships.every(ship => ship.placed)) {
+    emit("readyUp");
+  }
+});
 </script>

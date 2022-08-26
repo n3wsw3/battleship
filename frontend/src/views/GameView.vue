@@ -1,7 +1,13 @@
 <template>
   <div class="h-full">
-    <div class="grid grid-cols-3 md:grid-cols-4 h-full">
-      <div class="col-span-2 md:col-span-3 flex">
+    <div
+      class="h-full"
+      :class="{ 'grid grid-cols-3 md:grid-cols-4': !isReady }"
+    >
+      <div
+        class="flex flex-wrap"
+        :class="{ 'col-span-2 md:col-span-3': !isReady }"
+      >
         <GameBoard
           @shoot="placeShip"
           :ships="ships"

@@ -117,7 +117,7 @@ const placeShip = (coord: ICoord) => {
   let shipMapper: (_: any, i: number) => ICoord =
     selectedShip.value.orientation === "horizontal"
       ? (_, i) => ({ x: coord.x + i, y: coord.y })
-      : (_, i) => ({ x: coord.x, y: coord.y + 1 });
+      : (_, i) => ({ x: coord.x, y: coord.y + i });
 
   let shipPos = Array.from({ length: selectedShip.value.length }, shipMapper);
 

@@ -1,6 +1,10 @@
 <template>
   <li
-    class="w-full flex flex-col content-between p-3 rounded-lg mb-2 bg-gray-50 items-center border border-gray-100"
+    class="w-full flex flex-col content-between p-3 rounded-lg mb-2 items-center hover:cursor-pointer"
+    :class="{
+      'bg-gray-100 outline outline-gray-200 hover:cursor-default': isSelected,
+    }"
+    v-if="!ship.placed"
   >
     <div class="h-full">
       <img
@@ -16,7 +20,7 @@
 <script setup lang="ts">
 import { AvailableShip } from "../types";
 
-const props = defineProps<{ ship: AvailableShip }>();
+const props = defineProps<{ ship: AvailableShip; isSelected: boolean }>();
 
 const imageUrl = computed(() => {
   let size;

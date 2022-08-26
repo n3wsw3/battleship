@@ -1,6 +1,6 @@
 <template>
   <div
-    class="square"
+    class="square hover:cursor-pointer"
     :class="{ is_ship: props.has_ship, is_shot: props.is_shot }"
     @click="shoot"
   >

@@ -21,6 +21,7 @@
       <ShipSelector
         v-if="!elstrellaSelected"
         :ships="shipsAvailable"
+        :selectedShip="selectedShip"
         @readyUp="readyUp"
         @updateShips="setShipIndex"
       />

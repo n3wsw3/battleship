@@ -5,6 +5,7 @@
       <ShipSelectorShip
         v-for="(ship, index) in props.ships"
         :ship="ship"
+        :isSelected="selectedShip === ship"
         @click="emit('updateShips', index)"
       ></ShipSelectorShip>
     </ul>
@@ -21,7 +22,10 @@
 import { AvailableShip } from "../types";
 import ShipSelectorShip from "./ShipSelectorShip.vue";
 
-const props = defineProps<{ ships: AvailableShip[] }>();
+const props = defineProps<{
+  ships: AvailableShip[];
+  selectedShip: AvailableShip;
+}>();
 
 const emit = defineEmits<{
   (e: "readyUp"): void;

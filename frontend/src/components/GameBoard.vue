@@ -8,6 +8,9 @@
       @shoot="coord => emit('shoot', coord)"
       class="board"
     />
+    <h3 class="font-mono mt-2 uppercase text-center">
+      {{ user_id === "You" ? "your" : "opponent's" }} board
+    </h3>
   </div>
 </template>
 
@@ -24,6 +27,7 @@ const props = defineProps<{
   shots: Array<ICoord>;
   user_id: string;
   size: ICoord;
+  turn_id: string;
 }>();
 </script>
 

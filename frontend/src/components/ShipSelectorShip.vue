@@ -19,7 +19,7 @@
         <img src="../assets/refresh-cw.svg" alt="Rotate" class="h-5" />
       </a>
     </div>
-    <h4 class="font-mono">{{ ship.name }}</h4>
+    <h4 class="font-mono uppercase">{{ ship.name }}</h4>
   </li>
 </template>
 

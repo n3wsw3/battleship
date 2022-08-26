@@ -1,11 +1,12 @@
 <template>
   <div
-    class="square hover:cursor-pointer"
-    :class="{ is_ship: props.has_ship, is_shot: props.is_shot }"
+    class="square hover:cursor-pointer align-top z-10"
+    :class="{
+      is_ship: props.has_ship,
+      is_shot: props.is_shot,
+    }"
     @click="shoot"
-  >
-    {{ props.has_ship ? 1 : 0 }}|{{ props.is_shot ? 1 : 0 }}
-  </div>
+  ></div>
 </template>
 
 <script lang="ts" setup>

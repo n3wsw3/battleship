@@ -1,5 +1,8 @@
 <template>
-  <div :style="{ '--size': 100 / props.size.x + '%' }">
+  <div
+    :style="{ '--size': 100 / props.size.x + '%' }"
+    class="border-2 border-black rounded-xl overflow-hidden"
+  >
     <div v-for="index in props.size.x" class="row">
       <GameBoardSquare
         v-for="jndex in props.size.y"

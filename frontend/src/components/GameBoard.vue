@@ -4,6 +4,7 @@
       :user_id="props.user_id"
       :ships="props.ships"
       :shots="props.shots"
+      :size="props.size"
       @shoot="coord => emit('shoot', coord)"
       class="board"
     />
@@ -22,6 +23,7 @@ const props = defineProps<{
   ships: Array<Array<ICoord>>;
   shots: Array<ICoord>;
   user_id: string;
+  size: ICoord;
 }>();
 </script>
 

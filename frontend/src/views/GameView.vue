@@ -29,6 +29,7 @@
         :selectedShip="selectedShip"
         @readyUp="readyUp"
         @updateShips="setShipIndex"
+        @rotateShip="rotateShip"
       />
     </div>
   </div>
@@ -77,6 +78,14 @@ const readyUp = () => {
     console.log(msg);
   });
   elstrellaSelected.value = true;
+};
+
+const rotateShip = (shipIndex: number) => {
+  if (shipsAvailable[shipIndex].orientation === "horizontal") {
+    shipsAvailable[shipIndex].orientation = "vertical";
+  } else {
+    shipsAvailable[shipIndex].orientation = "horizontal";
+  }
 };
 
 // Other person is shooting on your ships

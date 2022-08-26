@@ -6,12 +6,18 @@
     }"
     v-if="!ship.placed"
   >
-    <div class="h-full">
+    <div class="h-full w-full flex justify-between">
       <img
         :src="imageUrl"
         :alt="`${ship.name} of length ${ship.length}`"
         class="m-2 rounded-md overflow-hidden"
       />
+      <a
+        @click="emit('rotateShip')"
+        class="flex items-center p-2 hover:cursor-pointer"
+      >
+        <img src="../assets/refresh-cw.svg" alt="Rotate" class="h-5" />
+      </a>
     </div>
     <h4 class="font-mono">{{ ship.name }}</h4>
   </li>
@@ -21,6 +27,9 @@
 import { AvailableShip } from "../types";
 
 const props = defineProps<{ ship: AvailableShip; isSelected: boolean }>();
+const emit = defineEmits<{
+  (e: "rotateShip"): void;
+}>();
 
 const imageUrl = computed(() => {
   let size;

@@ -7,6 +7,7 @@
         :ship="ship"
         :isSelected="selectedShip === ship"
         @click="emit('updateShips', index)"
+        @rotateShip="emit('rotateShip', index)"
       ></ShipSelectorShip>
     </ul>
     <!-- <button
@@ -30,6 +31,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "readyUp"): void;
   (e: "updateShips", index: number): void;
+  (e: "rotateShip", shipIndex: number): void;
 }>();
 
 const readyUp = () => {

@@ -5,23 +5,32 @@
       :class="{ 'grid grid-cols-3 md:grid-cols-4': !isReady }"
     >
       <div
-        class="flex flex-wrap"
+        class="flex flex-col items-center w-full h-full p-3"
         :class="{ 'col-span-2 md:col-span-3': !isReady }"
       >
-        <GameBoard
-          @shoot="placeShip"
-          :ships="ships"
-          :shots="shots"
-          user_id="You"
-          :size="gameSize"
-        />
-        <GameBoard
-          @shoot="shoot"
-          :ships="otherShips"
-          :shots="otherShots"
-          :user_id="props.other_player"
-          :size="gameSize"
-        />
+        <h1
+          class="text-3xl font-extrabold text-center mt-3 mb-6 flex items-center"
+        >
+          <img src="/logo.svg" alt="Battleship logo" class="h-8 mx-3 inline" />
+          Battleship
+        </h1>
+        <div class="flex flex-wrap">
+          <GameBoard
+            @shoot="placeShip"
+            :ships="ships"
+            :shots="shots"
+            user_id="You"
+            :size="gameSize"
+          />
+          <GameBoard
+            v-if="isReady"
+            @shoot="shoot"
+            :ships="otherShips"
+            :shots="otherShots"
+            :user_id="props.other_player"
+            :size="gameSize"
+          />
+        </div>
       </div>
       <ShipSelector
         v-if="!elstrellaSelected"

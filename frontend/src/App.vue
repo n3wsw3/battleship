@@ -1,10 +1,11 @@
 <template>
-  <StartView
-    v-if="!hasJoinedGame"
+  <StartView v-if="!hasJoinedGame" :socket="socket" @joinGame="joinGame" />
+  <GameView
+    v-if="hasJoinedGame"
     :socket="socket"
-    @joinGame="hasJoinedGame = true"
+    :other_player="otherPlayer"
+    :game-id="gameId"
   />
-  <GameView v-if="hasJoinedGame" :socket="socket" :other_player="otherPlayer" />
 </template>
 
 <script setup lang="ts">
@@ -14,8 +15,14 @@ import { io } from "socket.io-client";
 import { Socket } from "./types";
 
 const socket: Socket = io("http://localhost:3000");
-let hasJoinedGame = ref(false);
+const hasJoinedGame = ref(false);
 const otherPlayer = ref("");
+const gameId = ref("");
+
+const joinGame = (id: string) => {
+  hasJoinedGame.value = true;
+  gameId.value = id;
+};
 
 socket.on("connect", () => {
   console.log("Connected to websocket!");

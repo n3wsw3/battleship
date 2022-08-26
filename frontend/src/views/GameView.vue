@@ -20,7 +20,10 @@
             :ships="ships"
             :shots="shots"
             user_id="You"
+            :game_started="props.other_player !== ''"
+            :gameId="props.gameId"
             :size="gameSize"
+            :gameStarted="gameStarted"
           />
           <GameBoard
             v-if="isReady"
@@ -28,7 +31,10 @@
             :ships="otherShips"
             :shots="otherShots"
             :user_id="props.other_player"
+            :opponent_joined="props.other_player !== ''"
+            :gameId="props.gameId"
             :size="gameSize"
+            :gameStarted="gameStarted"
           />
         </div>
       </div>
@@ -49,8 +55,13 @@ import { ICoord } from "backend";
 import GameBoard from "../components/GameBoard.vue";
 import ShipSelector from "../components/ShipSelector.vue";
 import { AvailableShip, Socket } from "../types";
+import { ref } from "vue";
 
-const props = defineProps<{ socket: Socket; other_player: string }>();
+const props = defineProps<{
+  socket: Socket;
+  other_player: string;
+  gameId: string;
+}>();
 
 const shipsAvailable = reactive<AvailableShip[]>([
   { name: "patrol boat", length: 2, placed: false, orientation: "horizontal" },
@@ -66,13 +77,13 @@ const selectedShip = computed(() => {
 });
 
 const gameSize = reactive<ICoord>({ x: 10, y: 10 });
-
 const ships = reactive<Array<Array<ICoord>>>([]);
 const shots = reactive<Array<ICoord>>([]);
 const otherShips = reactive<Array<Array<ICoord>>>([]);
 const otherShots = reactive<Array<ICoord>>([]);
 const elstrellaSelected = ref(false);
 const isReady = ref(false);
+const gameStarted = ref(false);
 
 const readyUp = () => {
   props.socket.emit("ready_up", ships, ({ msg, error }) => {
@@ -100,6 +111,10 @@ const rotateShip = (shipIndex: number) => {
 props.socket.on("shoot", ({ error, ...hit }) => {
   if (error) return console.log(error);
   shots.push({ x: hit.x || -1, y: hit.y || -1 });
+});
+
+props.socket.on("start_game", () => {
+  gameStarted.value = true;
 });
 
 // You are shooting on the other person's ships

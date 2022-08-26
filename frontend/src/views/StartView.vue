@@ -3,7 +3,9 @@
     <div
       class="bg-gray-50 dark:bg-slate-800 rounded-lg p-6 border border-gray-100"
     >
-      <h1 class="text-2xl font-extrabold text-center mb-4">BATTLESHIP</h1>
+      <div class="flex justify-center mb-10">
+        <img src="/logo_full_2.svg" alt="Battleship logo" class="w-44" />
+      </div>
       <div class="mb-2">
         <input id="create" type="radio" value="create" v-model="method" />
         <label for="create" class="ml-1 mr-3">Create</label>
@@ -22,7 +24,7 @@
       </div>
       <button
         @click="joinGame"
-        class="bg-red-600 rounded-md text-white py-2 w-full mt-6"
+        class="bg-core rounded-md text-white py-2 w-full mt-6"
       >
         Join game
       </button>

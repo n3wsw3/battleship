@@ -8,12 +8,9 @@
         class="flex flex-col items-center w-full h-full p-3"
         :class="{ 'col-span-2 md:col-span-3': !isReady }"
       >
-        <h1
-          class="text-3xl font-extrabold text-center mt-3 mb-6 flex items-center"
-        >
-          <img src="/logo.svg" alt="Battleship logo" class="h-8 mx-3 inline" />
-          Battleship
-        </h1>
+        <div class="w-full px-3 mt-4 mb-10 flex sm:justify-center">
+          <img src="/logo_full_1.svg" alt="Battleship logo" class="h-12" />
+        </div>
         <div class="flex flex-wrap">
           <GameBoard
             @shoot="placeShip"

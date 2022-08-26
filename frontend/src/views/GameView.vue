@@ -67,12 +67,7 @@ const selectedShip = computed(() => {
 
 const gameSize = reactive<ICoord>({ x: 10, y: 10 });
 
-const ships = reactive<Array<Array<ICoord>>>([
-  [
-    { x: 1, y: 1 },
-    { x: 1, y: 2 },
-  ],
-]);
+const ships = reactive<Array<Array<ICoord>>>([]);
 const shots = reactive<Array<ICoord>>([]);
 const otherShips = reactive<Array<Array<ICoord>>>([]);
 const otherShots = reactive<Array<ICoord>>([]);

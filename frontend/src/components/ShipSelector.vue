@@ -10,12 +10,6 @@
         @rotateShip="emit('rotateShip', index)"
       ></ShipSelectorShip>
     </ul>
-    <!-- <button
-      @click="readyUp"
-      class="bg-red-600 rounded-md text-white py-2 w-full mt-2"
-    >
-      Ready
-    </button> -->
   </div>
 </template>
 

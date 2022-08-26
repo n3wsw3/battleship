@@ -6,11 +6,11 @@
     }"
     v-if="!ship.placed"
   >
-    <div class="h-full w-full flex justify-between">
+    <div class="h-full w-full flex justify-between m-2">
       <img
         :src="imageUrl"
         :alt="`${ship.name} of length ${ship.length}`"
-        class="m-2 rounded-md overflow-hidden"
+        class="rounded-md overflow-hidden"
       />
       <a
         @click="emit('rotateShip')"
@@ -19,7 +19,7 @@
         <img src="../assets/refresh-cw.svg" alt="Rotate" class="h-5" />
       </a>
     </div>
-    <h4 class="font-mono uppercase">{{ ship.name }}</h4>
+    <h4 class="font-mono uppercase text-left w-full">{{ ship.name }}</h4>
   </li>
 </template>
 

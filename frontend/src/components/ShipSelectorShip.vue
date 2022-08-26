@@ -39,6 +39,6 @@ const imageUrl = computed(() => {
   } else {
     size = `${scale}x${props.ship.length * scale}`;
   }
-  return `https://via.placeholder.com/${size}?text=${props.ship.name}`;
+  return `https://via.placeholder.com/${size}/4B5563/ffffff/?text=${props.ship.name}`;
 });
 </script>

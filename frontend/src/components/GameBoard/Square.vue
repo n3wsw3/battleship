@@ -2,8 +2,9 @@
   <div
     class="square hover:cursor-pointer border border-black align-top z-10"
     :class="{
-      is_ship: props.has_ship,
-      is_shot: props.is_shot,
+      'bg-gray-600': !props.is_shot && props.has_ship,
+      'bg-blue-500': props.is_shot,
+      'bg-red-500': props.has_ship && props.is_shot,
     }"
     @click="shoot"
   ></div>

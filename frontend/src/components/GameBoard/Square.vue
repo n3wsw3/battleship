@@ -1,6 +1,6 @@
 <template>
   <div
-    class="square hover:cursor-pointer align-top z-10"
+    class="square hover:cursor-pointer border border-black align-top z-10"
     :class="{
       is_ship: props.has_ship,
       is_shot: props.is_shot,
@@ -34,7 +34,6 @@ const shoot = () => {
   width: var(--size);
   text-align: center;
   user-select: none;
-  border: 1px solid black;
   aspect-ratio: 1;
 }
 

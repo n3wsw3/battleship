@@ -9,6 +9,11 @@
         :has_ship="isShip({ x: jndex, y: index })"
         :is_shot="isShot({ x: jndex, y: index })"
         @shoot="emit('shoot', { x: jndex, y: index })"
+        class="first:border-l-0 last:border-r-0"
+        :class="{
+          'border-t-0': index === 1,
+          'border-b-0': index === props.size.x,
+        }"
       />
     </div>
   </div>

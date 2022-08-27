@@ -27,7 +27,6 @@
             :gameStarted="gameStarted"
           />
           <GameBoard
-            v-if="isReady"
             @shoot="shoot"
             :ships="otherShips"
             :shots="otherShots"

@@ -6,7 +6,7 @@
         class="absolute h-full w-full"
       >
         <div
-          class="h-full w-full bg-white bg-opacity-80 flex justify-center items-center"
+          class="h-full w-full bg-white bg-opacity-95 flex justify-center items-center"
         >
           <div class="bg-white text-center max-w-xs p-4 rounded-md">
             <h4 class="text-xl font-bold mb-3">

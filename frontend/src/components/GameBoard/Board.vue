@@ -1,11 +1,19 @@
 <template>
-  <div :style="{ '--size': 100 / width + '%' }">
-    <div v-for="index in width" class="row">
+  <div
+    :style="{ '--size': 100 / props.size.x + '%' }"
+    class="border-2 border-black rounded-xl overflow-hidden"
+  >
+    <div v-for="index in props.size.x" class="row">
       <GameBoardSquare
-        v-for="jndex in height"
+        v-for="jndex in props.size.y"
         :has_ship="isShip({ x: jndex, y: index })"
         :is_shot="isShot({ x: jndex, y: index })"
         @shoot="emit('shoot', { x: jndex, y: index })"
+        class="first:border-l-0 last:border-r-0"
+        :class="{
+          'border-t-0': index === 1,
+          'border-b-0': index === props.size.x,
+        }"
       />
     </div>
   </div>
@@ -23,10 +31,8 @@ const props = defineProps<{
   ships: Array<Array<ICoord>>;
   shots: Array<ICoord>;
   user_id: string;
+  size: ICoord;
 }>();
-
-const width = ref(10);
-const height = ref(10);
 
 const isShip = (coord: ICoord): boolean => {
   return !!props.ships.find(ship => {

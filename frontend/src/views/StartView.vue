@@ -1,26 +1,30 @@
 <template>
   <div class="h-full flex items-center justify-center">
-    <div class="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
-      <h1 class="text-2xl font-extrabold text-center mb-4">BATTLESHIP</h1>
-      <div class="mb-2">
-        <input id="create" type="radio" value="create" v-model="method" />
-        <label for="create" class="ml-1 mr-3">Create</label>
-        <input id="join" type="radio" value="join" v-model="method" />
-        <label for="join" class="ml-1">Join</label>
+    <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
+      <div class="flex justify-center mb-10">
+        <img src="/logo_full_2.svg" alt="Battleship logo" class="w-44" />
       </div>
-      <div class="w-full">
-        <label for="gameId" class="mr-3">Game ID</label>
-        <input
-          type="text"
-          id="gameId"
-          v-model="gameId"
-          @keyup.enter="joinGame"
-          class="p-1 rounded-md font-mono border-gray-100 border"
+      <div class="my-8">
+        <FancyToggle
+          :options="['create', 'join']"
+          v-model="method"
+          class="mb-1"
         />
+        <div class="w-full mt-2">
+          <label for="gameId" class="mr-3">Game ID</label>
+          <input
+            type="text"
+            id="gameId"
+            v-model="gameId"
+            @keyup.enter="joinGame"
+            autocomplete="off"
+            class="p-2 rounded-md font-mono border-gray-100 border-2 border"
+          />
+        </div>
       </div>
       <button
         @click="joinGame"
-        class="bg-red-600 rounded-md text-white py-2 w-full mt-6"
+        class="rounded-md text-white font-semibold py-2 w-full bg-core hover:bg-core-dark"
       >
         Join game
       </button>
@@ -30,6 +34,7 @@
 
 <script setup lang="ts">
 import { Socket } from "../types";
+import FancyToggle from "../components/FancyToggle.vue";
 
 const props = defineProps<{ socket: Socket }>();
 const emit = defineEmits<{

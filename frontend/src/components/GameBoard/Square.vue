@@ -1,11 +1,13 @@
 <template>
   <div
-    class="square"
-    :class="{ is_ship: props.has_ship, is_shot: props.is_shot }"
+    class="square hover:cursor-pointer border border-black align-top z-10"
+    :class="{
+      'bg-gray-600': !props.is_shot && props.has_ship,
+      'bg-blue-500': props.is_shot,
+      'bg-red-500': props.has_ship && props.is_shot,
+    }"
     @click="shoot"
-  >
-    {{ props.has_ship ? 1 : 0 }}|{{ props.is_shot ? 1 : 0 }}
-  </div>
+  ></div>
 </template>
 
 <script lang="ts" setup>
@@ -33,7 +35,6 @@ const shoot = () => {
   width: var(--size);
   text-align: center;
   user-select: none;
-  border: 1px solid black;
   aspect-ratio: 1;
 }
 

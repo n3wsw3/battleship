@@ -60,8 +60,10 @@ export class Ship implements IShip {
    * @returns true if the shots the player has taken completely overlaps with the ships coords
    */
   isNewlyDead(totalShots: Coord[]): boolean {
-    return this.coords.every(
-      coord => !!totalShots.find(shot => shot.equals(coord))
+    return (
+      this.coords.every(
+        coord => !!totalShots.find(shot => shot.equals(coord))
+      ) && !this.is_dead
     );
   }
 }
@@ -122,11 +124,15 @@ export class Game implements IGame {
     return this.players.find(player => player.socket_id === playerId);
   }
 
+  private mod(n: number, m: number) {
+    return ((n % m) + m) % m;
+  }
+
   getPrevPlayer(currentPlayerId: string): Player | undefined {
     let currentPlayerIndex = this.players.findIndex(
       player => player.socket_id === currentPlayerId
     );
-    return this.players[--currentPlayerIndex % this.players.length];
+    return this.players[this.mod(--currentPlayerIndex, this.players.length)];
   }
 
   /**
@@ -143,18 +149,18 @@ export class Game implements IGame {
 
   /**
    * Add player to game
-   * @param player 
+   * @param player
    */
   addPlayer(player: Player): void {
     this.players.push(player);
   }
 
-   /**
-    * Shoot at the coordinates x and y and receive back if the shot hit and/or killed a ship
-    * @param x 
-    * @param y 
-    * @returns 
-    */
+  /**
+   * Shoot at the coordinates x and y and receive back if the shot hit and/or killed a ship
+   * @param x
+   * @param y
+   * @returns
+   */
   shoot(x: number, y: number): { is_hit: boolean; killed_ship: boolean } {
     const nextPlayer = this.getNextPlayer(this.turn);
     if (!nextPlayer) return { is_hit: false, killed_ship: false };

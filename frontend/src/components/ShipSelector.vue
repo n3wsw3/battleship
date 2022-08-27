@@ -1,5 +1,7 @@
 <template>
-  <div class="px-2 border-l-2 border-gray-200 bg-gray-100 h-full">
+  <div
+    class="px-2 border-l-2 border-gray-200 bg-gray-100 h-full overflow-y-auto"
+  >
     <h3 class="font-bold text-xl text-center my-4">Place ships</h3>
     <ul>
       <ShipSelectorShip

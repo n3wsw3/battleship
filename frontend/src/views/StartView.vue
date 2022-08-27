@@ -4,24 +4,27 @@
       <div class="flex justify-center mb-10">
         <img src="/logo_full_2.svg" alt="Battleship logo" class="w-44" />
       </div>
-      <FancyToggle
-        :options="['create', 'join']"
-        v-model="method"
-        class="mb-1"
-      />
-      <div class="w-full">
-        <label for="gameId" class="mr-3">Game ID</label>
-        <input
-          type="text"
-          id="gameId"
-          v-model="gameId"
-          @keyup.enter="joinGame"
-          class="p-1 rounded-md font-mono border-gray-100 border"
+      <div class="my-8">
+        <FancyToggle
+          :options="['create', 'join']"
+          v-model="method"
+          class="mb-1"
         />
+        <div class="w-full mt-2">
+          <label for="gameId" class="mr-3">Game ID</label>
+          <input
+            type="text"
+            id="gameId"
+            v-model="gameId"
+            @keyup.enter="joinGame"
+            autocomplete="off"
+            class="p-2 rounded-md font-mono border-gray-100 border-2 border"
+          />
+        </div>
       </div>
       <button
         @click="joinGame"
-        class="bg-core rounded-md text-white py-2 w-full mt-6"
+        class="rounded-md text-white font-semibold py-2 w-full bg-core hover:bg-core-dark"
       >
         Join game
       </button>

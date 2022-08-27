@@ -1,11 +1,12 @@
 <template>
-  <div class="w-full bg-white border border-gray-100 rounded-lg p-1">
+  <div class="w-full bg-gray-100 rounded-lg p-1">
     <div class="flex">
       <div
         v-for="option in options"
         :key="option"
-        class="p-2 rounded-md flex-1"
-        :class="modelValue === option ? 'bg-gray-100' : ''"
+        class="rounded-md flex-1"
+        :class="modelValue === option ? 'bg-white shadow-sm' : ''"
+        style="transition: all 200ms ease-in-out"
       >
         <input
           :id="option"
@@ -14,9 +15,12 @@
           v-model="value"
           class="hidden"
         />
-        <label :for="option" class="text-center block w-full font-mono">{{
-          option
-        }}</label>
+        <label
+          :for="option"
+          class="p-2 text-center block w-full capitalize"
+          :class="modelValue === option ? '' : 'cursor-pointer'"
+          >{{ option }}</label
+        >
       </div>
     </div>
   </div>

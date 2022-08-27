@@ -56,7 +56,6 @@ const props = defineProps<{
   gameStarted: boolean;
   gameId: string;
   size: ICoord;
-  turn_id: string;
 }>();
 
 const siteUrl = window.location.origin;

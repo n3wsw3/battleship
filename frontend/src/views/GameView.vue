@@ -20,6 +20,7 @@
             :ships="ships"
             :shots="shots"
             user_id="You"
+            :opponent_joined="props.other_player !== ''"
             :game_started="props.other_player !== ''"
             :gameId="props.gameId"
             :size="gameSize"

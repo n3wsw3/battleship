@@ -1,17 +1,14 @@
 <template>
   <div class="h-full flex items-center justify-center">
-    <div
-      class="bg-gray-50 dark:bg-slate-800 rounded-lg p-6 border border-gray-100"
-    >
+    <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
       <div class="flex justify-center mb-10">
         <img src="/logo_full_2.svg" alt="Battleship logo" class="w-44" />
       </div>
-      <div class="mb-2">
-        <input id="create" type="radio" value="create" v-model="method" />
-        <label for="create" class="ml-1 mr-3">Create</label>
-        <input id="join" type="radio" value="join" v-model="method" />
-        <label for="join" class="ml-1">Join</label>
-      </div>
+      <FancyToggle
+        :options="['create', 'join']"
+        v-model="method"
+        class="mb-1"
+      />
       <div class="w-full">
         <label for="gameId" class="mr-3">Game ID</label>
         <input
@@ -34,6 +31,7 @@
 
 <script setup lang="ts">
 import { Socket } from "../types";
+import FancyToggle from "../components/FancyToggle.vue";
 
 const props = defineProps<{ socket: Socket }>();
 const emit = defineEmits<{

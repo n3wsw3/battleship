@@ -21,7 +21,7 @@ import ShipSelectorShip from "./ShipSelectorShip.vue";
 
 const props = defineProps<{
   ships: AvailableShip[];
-  selectedShip: AvailableShip;
+  selectedShip?: AvailableShip;
 }>();
 
 const emit = defineEmits<{

@@ -124,6 +124,8 @@ export class Game implements IGame {
     return this.players.find(player => player.socket_id === playerId);
   }
 
+  // Modulo function that returns the remainder of n divided by m
+  // https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
   private mod(n: number, m: number) {
     return ((n % m) + m) % m;
   }

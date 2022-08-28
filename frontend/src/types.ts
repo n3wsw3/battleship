@@ -1,4 +1,4 @@
-import { ClientEvents, ServerEvents } from "backend";
+import { ClientEvents, ServerEvents } from "backend/src/events";
 import { Socket as S } from "socket.io-client";
 
 export type Socket = S<ServerEvents, ClientEvents>;

@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ICoord } from "backend";
+import { ICoord } from "backend/src/game/store";
 import GameBoard from "../components/GameBoard.vue";
 import ShipSelector from "../components/ShipSelector.vue";
 import { AvailableShip, Socket } from "../types";

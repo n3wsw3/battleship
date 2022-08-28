@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ICoord } from "backend";
+import { ICoord } from "backend/src/game/store";
 import GameBoardSquare from "./Square.vue";
 
 const emit = defineEmits<{

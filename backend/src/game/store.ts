@@ -93,6 +93,13 @@ export class Player implements IPlayer {
   isHit(shot: Coord): boolean {
     return !!this.ships.find(boat => boat.isHit(shot));
   }
+
+  readyUp(coords: ICoord[][]) {
+    this.ships = coords.map(
+      ship => new Ship(ship.map(coord => new Coord(coord)))
+    );
+    this.is_ready = true;
+  }
 }
 
 export interface IGame {

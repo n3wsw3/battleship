@@ -75,10 +75,7 @@ io.on("connection", socket => {
     const player = game.getPlayerFromId(socket.id);
     if (!player) return onCallback({ error: "Player Not Found" });
 
-    player.ships = ships.map(
-      ship => new Ship(ship.map(coord => new Coord(coord)))
-    );
-    player.is_ready = true;
+    player.readyUp(ships);
 
     onCallback({ msg: "Added Ships and Readied Up!" });
 

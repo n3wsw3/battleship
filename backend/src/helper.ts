@@ -1,3 +1,4 @@
 export const createGameId = (): string => {
-  return (Math.random() + 1).toString(36).substring(7);
+  let str = (Math.random() + 1).toString(36);
+  return str.substring(str.length - 5);
 };

@@ -1,4 +1,4 @@
-import { createGameId } from "../../backend/src/helper";
+import { createGameId } from "../src/helper";
 
 describe("Helper methods", () => {
   test("Create game id", () => {

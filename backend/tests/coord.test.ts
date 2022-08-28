@@ -1,4 +1,4 @@
-import { Coord } from "../../backend/src/game/store";
+import { Coord } from "../src/game/store";
 
 describe("Coord class", () => {
   test("x and y coords are correct", () => {

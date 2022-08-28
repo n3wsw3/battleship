@@ -1,4 +1,4 @@
-import { Coord, Ship } from "../../backend/src/game/store";
+import { Coord, Ship } from "../src/game/store";
 
 describe("Ship class", () => {
   test("ship is created correctly", () => {

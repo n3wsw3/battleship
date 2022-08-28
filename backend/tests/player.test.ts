@@ -1,4 +1,4 @@
-import { Coord, ICoord, Player } from "../../backend/src/game/store";
+import { Coord, ICoord, Player } from "../src/game/store";
 
 describe("Player class", () => {
   test("Player is created correctly", () => {

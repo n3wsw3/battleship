@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "npx nodemon ./src/index.ts",
-    "test": "pnpm jest"
+    "test": "pnpm jest",
+    "test:cov": "pnpm jest --coverage"
   },
   "author": "",
   "license": "ISC",

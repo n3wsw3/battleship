@@ -174,13 +174,15 @@ export class Game implements IGame {
     const nextPlayer = this.getNextPlayer(this.turn);
     if (!nextPlayer) return { is_hit: false, killed_ship: false };
 
+    const currentPlayer = this.getPlayerFromId(this.turn);
+
     const coord = new Coord({ x, y });
 
-    nextPlayer.shots_fired.push(coord);
+    currentPlayer.shots_fired.push(coord);
 
     const is_hit = nextPlayer.isHit(coord);
     const ship_killed = nextPlayer.ships.find(ship =>
-      ship.isNewlyDead(nextPlayer.shots_fired)
+      ship.isNewlyDead(currentPlayer.shots_fired)
     );
     if (ship_killed) ship_killed.is_dead = true;
 

@@ -2,7 +2,7 @@
   <div class="m-3">
     <div class="relative">
       <div
-        v-if="user_id !== 'You' && !opponent_joined && !gameStarted"
+        v-if="user_id !== 'You' && !opponent_joined"
         class="absolute h-full w-full"
       >
         <div
@@ -62,11 +62,7 @@ const siteUrl = window.location.origin;
 let dots = ref(0);
 
 const updateDots = () => {
-  if (dots.value < 3) {
-    dots.value++;
-  } else {
-    dots.value = 0;
-  }
+  dots.value = (dots.value + 1) % 4;
   if (!props.opponent_joined) {
     setTimeout(updateDots, 500);
   }
